@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../features/auth/hooks/useAuth";
 import useAuthStore from "../../features/auth/store/useAuthStore";
+import Image from "../../features/profile/components/Image";
 
 export default function Profile() {
     const { user } = useAuthStore((state) => state);
@@ -35,6 +36,7 @@ export default function Profile() {
     return (
         <main>
             <h1>Profile</h1>
+            <Image />
             <form onSubmit={(e) => handleUpdate(e)}>
                 <label
                     htmlFor="name"

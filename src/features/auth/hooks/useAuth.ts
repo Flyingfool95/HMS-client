@@ -8,7 +8,7 @@ import {
     sendResetEmailSchema,
     updateUserSchema,
 } from "../../../../zod/auth";
-import { validateInputData } from "../../../../helpers/auth";
+import { validateInputData } from "../../shared/helpers";
 
 import useAuthStore from "../store/useAuthStore";
 import useNotificationStore from "../../notifications/store/useNotificationStore";
@@ -143,10 +143,10 @@ export default function useAuth() {
     const sendResetEmail = useMutation({
         mutationFn: async (email: string) => {
             const validatedInputData = validateInputData(sendResetEmailSchema, email);
-            
+
             const results = await useFetch("/api/v1/auth/send-reset-email", "POST", false, validatedInputData);
-            console.log(results)
-            
+            console.log(results);
+
             return results;
         },
         onSuccess: (results: any) => {

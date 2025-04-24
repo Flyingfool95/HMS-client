@@ -1,13 +1,20 @@
 import { ZodSchema } from "zod";
 
 export async function useFetch(endpoint: string, method: string = "GET", credentials: boolean = false, data?: unknown) {
+    const isFormData = data instanceof FormData;
+
+    console.log(data)
+    console.log(isFormData)
+
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL + endpoint}`, {
         method: method.toUpperCase(),
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: isFormData
+            ? undefined
+            : {
+                  "Content-Type": "application/json",
+              },
         credentials: credentials ? "include" : "same-origin",
-        body: JSON.stringify(data),
+        body: data ? (isFormData ? (data as FormData) : JSON.stringify(data)) : undefined,
     });
 
     const results = await response.json();

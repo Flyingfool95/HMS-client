@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuthStore from "../../auth/store/useAuthStore";
-import useAuth from "../../auth/hooks/useAuth";
+import useProfile from "../hooks/useProfile";
 
 function Details() {
     const { user } = useAuthStore((state) => state);
@@ -10,7 +10,7 @@ function Details() {
     const [currentPassword, setCurrentPassword] = useState<string | undefined>(undefined);
     const [newPassword, setNewPassword] = useState<string | undefined>(undefined);
 
-    const { updateUser } = useAuth();
+    const { updateUser } = useProfile();
 
     useEffect(() => {
         if (currentPassword === "") {

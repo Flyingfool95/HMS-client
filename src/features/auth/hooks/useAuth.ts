@@ -66,27 +66,7 @@ export default function useAuth() {
         },
     });
 
-    const updateUser = useMutation({
-        mutationFn: async (updateData: {
-            currentPassword?: string;
-            newPassword?: string;
-            email?: string;
-            name?: string;
-        }) => {
-            const validatedInputData = validateInputData(updateUserSchema, updateData);
-
-            const results = await useFetch("/api/v1/auth/update", "PUT", true, validatedInputData);
-
-            return results;
-        },
-        onSuccess: (results) => {
-            setUser(results.data);
-            addNotification(results.message, "success");
-        },
-        onError: (error) => {
-            addNotification(error.message, "error", 7000);
-        },
-    });
+   
 
     const logoutUser = useMutation({
         mutationFn: async () => {
@@ -161,7 +141,6 @@ export default function useAuth() {
     return {
         registerUser,
         loginUser,
-        updateUser,
         logoutUser,
         deleteUser,
         resetPassword,

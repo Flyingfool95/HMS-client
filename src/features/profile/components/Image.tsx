@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import imageCompression from "browser-image-compression";
 import useNotificationStore from "../../notifications/store/useNotificationStore";
+import useProfile from "../hooks/useProfile";
 
 function Image() {
     const profileImageRef = useRef<HTMLInputElement | null>(null);
@@ -8,13 +9,16 @@ function Image() {
 
     const { addNotification } = useNotificationStore((state) => state);
 
+    const { updateImage } = useProfile();
+
     const handleUpload = async () => {
+        const formData = new FormData();
+
         if (!profileImageRef.current || !profileImageRef.current.files?.[0]) {
             addNotification("Please add an image", "warning");
             return;
         }
         const image = profileImageRef.current.files[0];
-        if (!image) return;
 
         const options = {
             maxSizeMB: 0.2,
@@ -23,9 +27,11 @@ function Image() {
         };
 
         const compressedImage = await imageCompression(image, options);
+        formData.append("image", compressedImage);
         const blobUrl = URL.createObjectURL(compressedImage);
         setImageUrl(blobUrl);
-        console.log(compressedImage)
+
+        updateImage.mutate(formData);
     };
 
     return (

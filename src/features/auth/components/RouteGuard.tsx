@@ -9,7 +9,6 @@ export default function RouteGuard({ isProtected }: { isProtected: boolean }) {
 
     const { user, setUser, isAuthChecked, setIsAuthChecked } = useAuthStore((state) => state);
 
-    console.log(user);
 
     const handleCheckAuth = async () => {
         const controller = new AbortController();

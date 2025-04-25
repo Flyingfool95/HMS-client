@@ -66,7 +66,6 @@ export default function useAuth() {
         },
         onError: (error) => {
             console.log(error);
-
             addNotification(error.message, "error", 7000);
         },
     });
@@ -128,7 +127,6 @@ export default function useAuth() {
             const validatedInputData = validateInputData(sendResetEmailSchema, email);
 
             const results = await useFetch("/api/v1/auth/send-reset-email", "POST", false, validatedInputData);
-            console.log(results);
 
             return results;
         },

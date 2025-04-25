@@ -19,7 +19,6 @@ export default function useProfile() {
         },
         onSuccess: async (results) => {
             addNotification(results.message, "success");
-            console.log(results);
         },
         onError: (error) => {
             console.log(error);

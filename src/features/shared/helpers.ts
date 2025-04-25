@@ -1,10 +1,7 @@
 import { ZodSchema } from "zod";
 
 export async function useFetch(endpoint: string, method: string = "GET", credentials: boolean = false, data?: unknown) {
-    const isFormData = data instanceof FormData;
-
-    console.log(data)
-    console.log(isFormData)
+    const isFormData = data instanceof Blob;
 
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL + endpoint}`, {
         method: method.toUpperCase(),
@@ -14,7 +11,7 @@ export async function useFetch(endpoint: string, method: string = "GET", credent
                   "Content-Type": "application/json",
               },
         credentials: credentials ? "include" : "same-origin",
-        body: data ? (isFormData ? (data as FormData) : JSON.stringify(data)) : undefined,
+        body: data ? (isFormData ? (data as Blob) : JSON.stringify(data)) : undefined,
     });
 
     const results = await response.json();
@@ -34,4 +31,14 @@ export function validateInputData(schema: ZodSchema, data: unknown) {
     }
 
     return result.data;
+}
+
+export async function convertPixelDataToImage(pixeldata: any) {
+    const pixelValues = Object.values(pixeldata);
+    const pixelArray = new Uint8Array(pixelValues as any);
+
+    const blob = new Blob([pixelArray], { type: "iamge/jpeg" });
+    const imageUrl = URL.createObjectURL(blob);
+
+    return imageUrl;
 }

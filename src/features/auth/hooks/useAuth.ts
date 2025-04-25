@@ -8,7 +8,7 @@ import {
     sendResetEmailSchema,
     updateUserSchema,
 } from "../../../../zod/auth";
-import { validateInputData } from "../../shared/helpers";
+import { convertPixelDataToImage, validateInputData } from "../../shared/helpers";
 
 import useAuthStore from "../store/useAuthStore";
 import useNotificationStore from "../../notifications/store/useNotificationStore";
@@ -54,8 +54,13 @@ export default function useAuth() {
 
             return results;
         },
-        onSuccess: (results) => {
-            setUser(results.data);
+        onSuccess: async (results) => {
+            setUser({
+                id: results.data.id,
+                name: results.data.name,
+                email: results.data.email,
+                image: await convertPixelDataToImage(results.data.image),
+            });
             addNotification(results.message, "success");
             navigate("/");
         },
@@ -65,8 +70,6 @@ export default function useAuth() {
             addNotification(error.message, "error", 7000);
         },
     });
-
-   
 
     const logoutUser = useMutation({
         mutationFn: async () => {

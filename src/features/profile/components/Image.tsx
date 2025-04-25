@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import imageCompression from "browser-image-compression";
 import useNotificationStore from "../../notifications/store/useNotificationStore";
 import useProfile from "../hooks/useProfile";
+import useAuthStore from "../../auth/store/useAuthStore";
 
 function Image() {
     const profileImageRef = useRef<HTMLInputElement | null>(null);
@@ -9,11 +10,21 @@ function Image() {
 
     const { addNotification } = useNotificationStore((state) => state);
 
+    const { user, setUser } = useAuthStore((state) => state);
+
     const { updateImage } = useProfile();
 
-    const handleUpload = async () => {
-        const formData = new FormData();
+    useEffect(() => {
+        return () => {
+            if (imageUrl) {
+                URL.revokeObjectURL(imageUrl);
+            }
+        };
+    }, [imageUrl]);
 
+    const displayImageUrl = imageUrl || user?.image || undefined;
+
+    const handleUpload = async () => {
         if (!profileImageRef.current || !profileImageRef.current.files?.[0]) {
             addNotification("Please add an image", "warning");
             return;
@@ -27,18 +38,25 @@ function Image() {
         };
 
         const compressedImage = await imageCompression(image, options);
-        formData.append("image", compressedImage);
         const blobUrl = URL.createObjectURL(compressedImage);
         setImageUrl(blobUrl);
+        updateImage.mutate(compressedImage);
 
-        updateImage.mutate(formData);
+        if (!user) return;
+
+        setUser({
+            id: user?.id,
+            name: user?.name,
+            email: user?.email,
+            image: blobUrl,
+        });
     };
 
     return (
         <div
             className="profile-image"
             style={{
-                backgroundImage: imageUrl ? `url(${imageUrl})` : "none",
+                backgroundImage: displayImageUrl ? `url(${displayImageUrl})` : "none",
                 height: "100px",
                 width: "100px",
                 backgroundSize: "cover",
@@ -46,8 +64,14 @@ function Image() {
                 border: "1px solid #ccc",
             }}
         >
-            <input type="file" name="profile-image" id="profile-image" accept=".jpg,.png" ref={profileImageRef} />
-            <button onClick={handleUpload}>Save</button>
+            <input
+                type="file"
+                name="profile-image"
+                id="profile-image"
+                accept=".jpg"
+                ref={profileImageRef}
+                onChange={handleUpload}
+            />
         </div>
     );
 }

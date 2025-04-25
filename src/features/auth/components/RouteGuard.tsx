@@ -2,11 +2,14 @@ import { Suspense, useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore";
 import Loader from "../../loader/components/Loader";
+import { convertPixelDataToImage } from "../../shared/helpers";
 
 export default function RouteGuard({ isProtected }: { isProtected: boolean }) {
     const location = useLocation();
 
     const { user, setUser, isAuthChecked, setIsAuthChecked } = useAuthStore((state) => state);
+
+    console.log(user);
 
     const handleCheckAuth = async () => {
         const controller = new AbortController();
@@ -29,7 +32,12 @@ export default function RouteGuard({ isProtected }: { isProtected: boolean }) {
             if (!res.success) return setUser(null);
 
             clearTimeout(timeoutId);
-            setUser(res.data);
+            setUser({
+                id: res.data.id,
+                name: res.data.name,
+                email: res.data.email,
+                image: await convertPixelDataToImage(res.data.image),
+            });
         } catch (error) {
             setIsAuthChecked(true);
             clearTimeout(timeoutId);

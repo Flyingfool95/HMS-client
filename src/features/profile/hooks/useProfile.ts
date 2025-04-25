@@ -10,15 +10,16 @@ export default function useProfile() {
     const { setUser } = useAuthStore((state) => state);
 
     const updateImage = useMutation({
-        mutationFn: async (image: FormData) => {
+        mutationFn: async (image: Blob) => {
             const validatedInputData = validateInputData(updateImageSchema, image);
 
-            const results = await useFetch("/api/v1/profile/update-image", "POST", false, validatedInputData);
+            const results = await useFetch("/api/v1/profile/update-image", "PATCH", true, validatedInputData);
 
             return results;
         },
-        onSuccess: (results) => {
+        onSuccess: async (results) => {
             addNotification(results.message, "success");
+            console.log(results);
         },
         onError: (error) => {
             console.log(error);

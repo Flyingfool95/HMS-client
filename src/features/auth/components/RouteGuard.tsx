@@ -8,7 +8,6 @@ export default function RouteGuard({ isProtected }: { isProtected: boolean }) {
     const publicOnlyPaths = ["/login", "/register"];
 
     const location = useLocation();
-    console.log(publicOnlyPaths.includes(location.pathname));
 
     const { user, setUser, isAuthChecked, setIsAuthChecked } = useAuthStore((state) => state);
 

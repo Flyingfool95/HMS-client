@@ -39,17 +39,22 @@ function Image() {
             useWebWorker: true,
         };
 
-        const compressedImage = await imageCompression(image, options);
-        const blobUrl = URL.createObjectURL(compressedImage);
-        setImageUrl(blobUrl);
-        updateImage.mutate(compressedImage);
+        try {
+            const compressedImage = await imageCompression(image, options);
+            const blobUrl = URL.createObjectURL(compressedImage);
+            setImageUrl(blobUrl);
+            updateImage.mutate(compressedImage);
 
-        setUser({
-            id: user?.id,
-            name: user?.name,
-            email: user?.email,
-            image: blobUrl,
-        });
+            setUser({
+                id: user?.id,
+                name: user?.name,
+                email: user?.email,
+                image: blobUrl,
+            });
+        } catch (error: any) {
+            console.log(error.message);
+            addNotification(error.message, "error");
+        }
     };
 
     return (

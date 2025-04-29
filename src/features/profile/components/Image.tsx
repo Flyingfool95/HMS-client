@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import "../styles/Image.css";
 import imageCompression from "browser-image-compression";
 import useNotificationStore from "../../notifications/store/useNotificationStore";
 import useProfile from "../hooks/useProfile";
@@ -25,6 +26,7 @@ function Image() {
     const displayImageUrl = imageUrl || user?.image || undefined;
 
     const handleUpload = async () => {
+        if (!user) return;
         if (!profileImageRef.current || !profileImageRef.current.files?.[0]) {
             addNotification("Please add an image", "warning");
             return;
@@ -41,8 +43,6 @@ function Image() {
         const blobUrl = URL.createObjectURL(compressedImage);
         setImageUrl(blobUrl);
         updateImage.mutate(compressedImage);
-
-        if (!user) return;
 
         setUser({
             id: user?.id,
@@ -64,6 +64,9 @@ function Image() {
                 border: "1px solid #ccc",
             }}
         >
+            <label htmlFor="profile-image" className="update-label">
+                Update image
+            </label>
             <input
                 type="file"
                 name="profile-image"
@@ -71,6 +74,7 @@ function Image() {
                 accept=".jpg"
                 ref={profileImageRef}
                 onChange={handleUpload}
+                className="visual-hide"
             />
         </div>
     );

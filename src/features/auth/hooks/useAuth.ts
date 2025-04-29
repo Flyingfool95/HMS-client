@@ -6,7 +6,6 @@ import {
     registerSchema,
     resetPasswordSchema,
     sendResetEmailSchema,
-    updateUserSchema,
 } from "../../../../zod/auth";
 import { convertPixelDataToImage, validateInputData } from "../../shared/helpers";
 

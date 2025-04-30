@@ -21,12 +21,19 @@
     --spacing-large: calc(var(--size-base) * 1.5);
     --spacing-xl: calc(var(--size-base) * 2);
 
+    /* Content */
+    --spacing-content-xs: calc(var(--size-base) * 20);
+    --spacing-content-small: calc(var(--size-base) * 25);
+    --spacing-content-medium: calc(var(--size-base) * 30);
+    --spacing-content-large: calc(var(--size-base) * 40);
+    --spacing-content-xl: calc(var(--size-base) * 50);
+
     /* Colors */
     --color-primary-light: hsl(276, 100%, 95%);
     --color-primary-base: hsl(276, 92%, 75%);
     --color-primary-dark: hsl(276, 95%, 45%);
-    --color-primary-darkest: hsl(276, 100%, 15%);
-    --color-primary-darkest-50: hsl(276, 100%, 15%, 0.5);
+    --color-primary-darkest: hsl(276, 100%, 5%);
+    --color-primary-darkest-50: hsl(276, 100%, 5%, 0.5);
 
     --color-info-light: hsl(203, 99%, 99%);
     --color-info-base: hsl(203, 92%, 75%);

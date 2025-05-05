@@ -1,6 +1,7 @@
 .calendar-day {
     height: 125px;
     padding: var(--spacing-small);
+    border-radius: var(--spacing-xs);
 
     background-color: lightcoral;
 
@@ -10,7 +11,7 @@
     }
 }
 
-.calendar-day-number{
+.calendar-day-number {
     font-size: var(--text-heading-small);
 }
 

@@ -1,5 +1,6 @@
-import useCalendarStore from "../store/useCalendarStore";
+import "../styles/CalendarSelector.css";
 import { format } from "date-fns";
+import useCalendarStore from "../store/useCalendarStore";
 
 function CalendarSelector({
     dateFormat,
@@ -16,9 +17,9 @@ function CalendarSelector({
 
     return (
         <div className="calendar-selector">
-            <h1>{format(getActiveDate(), dateFormat)}</h1>
-            <button onClick={increment}>Next {dateType}</button>
             <button onClick={decrement}>Previous {dateType}</button>
+            <p className={`calendar-${dateType.toLowerCase()}`}>{format(getActiveDate(), dateFormat)}</p>
+            <button onClick={increment}>Next {dateType}</button>
         </div>
     );
 }

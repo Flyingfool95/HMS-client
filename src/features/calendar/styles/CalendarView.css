@@ -1,0 +1,10 @@
+.calendar-view {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+
+    > * {
+        flex-basis: 12%;
+        flex-grow: 1;
+    }
+}

@@ -1,3 +1,4 @@
+import "../styles/CalendarHeader.css";
 import useCalendarStore from "../store/useCalendarStore";
 import CalendarSelector from "./CalendarSelector";
 
@@ -21,7 +22,7 @@ function CalendarHeader() {
                 dateType={"Month"}
             />
 
-            <button onClick={resetToToday}>Reset</button>
+            <button className="calendar-reset" onClick={resetToToday}>Reset</button>
         </div>
     );
 }

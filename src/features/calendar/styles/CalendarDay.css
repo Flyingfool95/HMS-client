@@ -1,0 +1,19 @@
+.calendar-day {
+    height: 125px;
+    padding: var(--spacing-small);
+
+    background-color: lightcoral;
+
+    > * {
+        margin: 0;
+        line-height: 1;
+    }
+}
+
+.calendar-day-number{
+    font-size: var(--text-heading-small);
+}
+
+.calendar-placeholder-day {
+    background-color: lightgrey;
+}

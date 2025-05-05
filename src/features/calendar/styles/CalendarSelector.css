@@ -1,0 +1,19 @@
+.calendar-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-medium);
+
+    .calendar-year {
+        font-size: var(--text-heading-large);
+        margin: 0;
+        flex-basis: var(--spacing-content-xs);
+        text-align: center;
+    }
+    .calendar-month {
+        font-size: var(--text-heading-medium);
+        margin: 0;
+        flex-basis: var(--spacing-content-xs);
+        text-align: center;
+    }
+}

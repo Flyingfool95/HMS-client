@@ -1,0 +1,23 @@
+.calendar-header {
+    position: relative;
+    background-color: lightblue;
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--spacing-medium);
+
+    > * {
+        flex-basis: 100%;
+    }
+
+    .calendar-reset {
+        position: absolute;
+        right: var(--spacing-small);
+        top: var(--spacing-small);
+        background: none;
+        color: var(--color-error-dark);
+
+        &:hover {
+            color: var(--color-error-base);
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { addMonths, getDaysInMonth } from "date-fns";
+import { addMonths, getDay, getDaysInMonth, startOfMonth } from "date-fns";
 import { create } from "zustand";
 
 interface ICalendarStore {
@@ -6,7 +6,8 @@ interface ICalendarStore {
     activeDateOffset: number;
 
     getActiveDate: () => Date;
-    daysInCurrentMonth: () => number;
+    getDaysInCurrentMonth: () => number;
+    getFirstMonthDayIndex: () => number;
 
     incrementMonth: () => void;
     decrementMonth: () => void;
@@ -21,7 +22,12 @@ const useCalendarStore = create<ICalendarStore>((set, get) => ({
     activeDateOffset: 0,
 
     getActiveDate: () => addMonths(get().today, get().activeDateOffset),
-    daysInCurrentMonth: () => getDaysInMonth(addMonths(get().today, get().activeDateOffset)),
+    getDaysInCurrentMonth: () => getDaysInMonth(addMonths(get().today, get().activeDateOffset)),
+    getFirstMonthDayIndex: () => {
+        const activeDate = addMonths(get().today, get().activeDateOffset);
+        const firstDayOfMonth = startOfMonth(activeDate);
+        return getDay(firstDayOfMonth);
+    },
 
     incrementMonth: () => set((state) => ({ activeDateOffset: state.activeDateOffset + 1 })),
     decrementMonth: () => set((state) => ({ activeDateOffset: state.activeDateOffset - 1 })),

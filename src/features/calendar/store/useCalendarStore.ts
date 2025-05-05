@@ -10,6 +10,9 @@ interface ICalendarStore {
 
     incrementMonth: () => void;
     decrementMonth: () => void;
+
+    incrementYear: () => void;
+    decrementYear: () => void;
     resetToToday: () => void;
 }
 
@@ -22,6 +25,9 @@ const useCalendarStore = create<ICalendarStore>((set, get) => ({
 
     incrementMonth: () => set((state) => ({ activeDateOffset: state.activeDateOffset + 1 })),
     decrementMonth: () => set((state) => ({ activeDateOffset: state.activeDateOffset - 1 })),
+
+    incrementYear: () => set((state) => ({ activeDateOffset: state.activeDateOffset + 12 })),
+    decrementYear: () => set((state) => ({ activeDateOffset: state.activeDateOffset - 12 })),
     resetToToday: () => set({ activeDateOffset: 0 }),
 }));
 

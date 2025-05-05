@@ -1,15 +1,26 @@
 import useCalendarStore from "../store/useCalendarStore";
-import { format } from "date-fns";
+import CalendarSelector from "./CalendarSelector";
 
 function CalendarHeader() {
-    const { getActiveDate, incrementMonth, decrementMonth, resetToToday } = useCalendarStore((state) => state);
+    const { incrementMonth, decrementMonth, resetToToday, incrementYear, decrementYear } = useCalendarStore(
+        (state) => state
+    );
 
     return (
         <div className="calendar-header">
-            <h1>{format(getActiveDate(), "yyyy")}</h1>
-            <h2>{format(getActiveDate(), "MMMM")}</h2>
-            <button onClick={incrementMonth}>Next month</button>
-            <button onClick={decrementMonth}>Previous month</button>
+            <CalendarSelector
+                dateFormat={"yyyy"}
+                increment={incrementYear}
+                decrement={decrementYear}
+                dateType={"Year"}
+            />
+            <CalendarSelector
+                dateFormat={"MMMM"}
+                increment={incrementMonth}
+                decrement={decrementMonth}
+                dateType={"Month"}
+            />
+
             <button onClick={resetToToday}>Reset</button>
         </div>
     );

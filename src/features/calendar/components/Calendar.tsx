@@ -1,3 +1,4 @@
+import "../styles/Calendar.css";
 import CalendarFilters from "./CalendarFilters";
 import CalendarHeader from "./CalendarHeader";
 import CalendarView from "./CalendarView";

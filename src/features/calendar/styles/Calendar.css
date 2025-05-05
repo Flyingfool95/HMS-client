@@ -1,0 +1,5 @@
+.calendar {
+    color: var(--color-primary-darkest);
+    max-width: var(--spacing-content-2xl);
+    margin: 0 auto;
+}

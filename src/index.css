@@ -27,6 +27,7 @@
     --spacing-content-medium: calc(var(--size-base) * 30);
     --spacing-content-large: calc(var(--size-base) * 40);
     --spacing-content-xl: calc(var(--size-base) * 50);
+    --spacing-content-2xl: calc(var(--size-base) * 75);
 
     /* Colors */
     --color-primary-light: hsl(276, 100%, 95%);

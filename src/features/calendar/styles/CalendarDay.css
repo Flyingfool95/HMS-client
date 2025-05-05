@@ -3,7 +3,7 @@
     padding: var(--spacing-small);
     border-radius: var(--spacing-xs);
 
-    background-color: lightcoral;
+    background-color: var(--color-primary-base);
 
     > * {
         margin: 0;
